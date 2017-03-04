@@ -1,0 +1,38 @@
+apply plugin: 'checkstyle'
+apply plugin: 'de.aaschmid.cpd'
+apply plugin: 'findbugs'
+apply plugin: 'jacoco'
+apply plugin: 'jdepend'
+apply plugin: 'pmd'
+
+def scaConfigPath = file("${rootProject.projectDir}/gradle/sca")
+
+checkstyle {
+    configFile = file("${scaConfigPath}/checkstyle/checkstyle.xml")
+    toolVersion = "7.2"
+    ignoreFailures = true
+}
+
+cpdCheck {
+    ignoreFailures = true
+}
+
+findbugs {
+    ignoreFailures = true
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+    }
+}
+
+jdepend {
+    ignoreFailures = true
+}
+
+pmd {
+    ignoreFailures = true
+}
+
+check.dependsOn 'jacocoTestReport'

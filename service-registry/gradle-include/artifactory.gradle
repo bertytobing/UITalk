@@ -1,0 +1,24 @@
+apply plugin: 'com.jfrog.artifactory'
+apply plugin: 'maven-publish'
+
+artifactory {
+    contextUrl = 'https://repository.gdplabs.id/artifactory'
+    publish {
+        repository {
+            repoKey = 'catapa-snapshot'
+            username = System.getenv("artifactoryUsername");
+            password = System.getenv("artifactoryPassword");
+        }
+        defaults {
+            publications ('mavenJava')
+        }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}

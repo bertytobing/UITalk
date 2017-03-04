@@ -1,0 +1,55 @@
+buildscript {
+	repositories {
+		mavenCentral()
+		maven {
+			url "https://plugins.gradle.org/m2/"
+		}
+	}
+	dependencies {
+		classpath "de.aaschmid:gradle-cpd-plugin:${cpdVersion}"
+		classpath "org.jfrog.buildinfo:build-info-extractor-gradle:${artifactoryVersion}"
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+	}
+}
+
+group = 'com.catapa'
+version = '0.0.1-SNAPSHOT'
+description = 'Catapa Service Registry'
+
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+
+apply from: "${rootProject.projectDir}/gradle-include/artifactory.gradle"
+apply from: "${rootProject.projectDir}/gradle-include/sca.gradle"
+
+jar {
+	baseName = project.name
+	version = project.version
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+	maven {
+		credentials {
+			System.getenv("artifactoryUsername");
+			System.getenv("artifactoryPassword");
+		}
+		url "https://repository.gdplabs.id/artifactory/catapa-snapshot/"
+	}
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+dependencies {
+	compile('org.springframework.cloud:spring-cloud-starter-eureka-server')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
