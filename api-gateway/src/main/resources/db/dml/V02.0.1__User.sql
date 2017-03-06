@@ -1,0 +1,9 @@
+INSERT INTO `users` VALUES
+('00000000-0000-0000-0000-000000000000', 'client_id', '$2a$06$JBWj.bsuIse/4SpVfYq6f.7YCn53gAzIKmaNwJ6ICCLwgAMS9PlKy'),
+('00000000-0000-0000-0000-000000000012', 'galih', '$2a$06$0.DwKzkShNPTSBnVwVqc4.Rg1yP5HyhUIjZ6cuLduc0SkgQJmz2Ue'),
+('00000000-0000-0000-0000-000000000013', 'berty', '$2a$06$0.DwKzkShNPTSBnVwVqc4.Rg1yP5HyhUIjZ6cuLduc0SkgQJmz2Ue');
+
+INSERT INTO `authorities` VALUES
+(1, 'client_id', 'ROLE_CLIENT'),
+(2, 'galih', 'ROLE_USER'),
+(3, 'berty', 'ROLE_USER');
