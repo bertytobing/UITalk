@@ -1,7 +1,7 @@
-package com.course.controller;
+package com.grade.controller;
 
-import com.course.model.entity.Course;
-import com.course.service.CourseService;
+import com.grade.model.entity.Grade;
+import com.grade.service.GradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,37 +17,31 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(value = "/courses", produces = { MediaType.APPLICATION_JSON_VALUE })
-public class CourseController {
+@RequestMapping(value = "/grades", produces = { MediaType.APPLICATION_JSON_VALUE })
+public class GradeController {
 
     @Autowired
-    private CourseService courseService;
+    private GradeService gradeService;
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public Course create(@Valid @RequestBody Course course) {
-        return courseService.create(course);
+    public Grade create(@Valid @RequestBody Grade grade) {
+        return gradeService.create(grade);
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@RequestBody String id) {
-        courseService.delete(id);
+        gradeService.delete(id);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public Page<Course> findAll(Pageable pageable) {
-        return courseService.findAll(pageable);
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Course findById(@PathVariable("id") Course course) {
-        return course;
+    public Page<Grade> findAll(Pageable pageable) {
+        return gradeService.findAll(pageable);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Course update(@PathVariable("id") Course course,
-        @Valid @RequestBody Course updatedCourse) {
-        return courseService.update(course, updatedCourse);
+    public Grade update(@PathVariable("id") Grade grade, @Valid @RequestBody Grade updatedGrade) {
+        return gradeService.update(grade, updatedGrade);
     }
 }
