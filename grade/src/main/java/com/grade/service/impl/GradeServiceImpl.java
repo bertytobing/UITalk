@@ -7,7 +7,6 @@ import com.grade.repository.GradeRepository;
 import com.grade.service.CourseService;
 import com.grade.service.GradeService;
 import com.grade.service.StudentService;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -53,28 +52,10 @@ public class GradeServiceImpl implements GradeService {
     }
 
     private void assertCourseAndStudentNotNull(Grade grade) {
-        Course course = getCourseById(grade.getCourseId());
-        Student student = getStudentById(grade.getStudentId());
+        Course course = courseService.findById(grade.getCourseId());
+        Student student = studentService.findById(grade.getStudentId());
         if (course == null || student == null) {
             throw new RuntimeException("grade or student is null");
         }
-    }
-
-    private Course courseNotFound(String id) {
-        return null;
-    }
-
-    @HystrixCommand(fallbackMethod = "courseNotFound")
-    public Course getCourseById(String id) {
-        return courseService.findById(id);
-    }
-
-    @HystrixCommand(fallbackMethod = "studentNotFound")
-    public Student getStudentById(String id) {
-        return studentService.findById(id);
-    }
-
-    private Student studentNotFound(String id) {
-        return null;
     }
 }
