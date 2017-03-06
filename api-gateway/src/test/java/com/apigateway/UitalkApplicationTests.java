@@ -1,4 +1,4 @@
-package demo.uitalk;
+package com.apigateway;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
