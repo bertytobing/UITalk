@@ -1,7 +1,7 @@
 package com.course.controller;
 
-import com.course.model.entity.Course;
-import com.course.service.CourseService;
+import com.course.model.entity.Student;
+import com.course.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,32 +17,32 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(value = "/courses", produces = { MediaType.APPLICATION_JSON_VALUE })
-public class CourseController {
+@RequestMapping(value = "/students", produces = { MediaType.APPLICATION_JSON_VALUE })
+public class StudentController {
 
     @Autowired
-    private CourseService courseService;
+    private StudentService studentService;
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public Course create(@Valid @RequestBody Course course) {
-        return courseService.create(course);
+    public Student create(@Valid @RequestBody Student student) {
+        return studentService.create(student);
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@RequestBody String id) {
-        courseService.delete(id);
+        studentService.delete(id);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public Page<Course> findAll(Pageable pageable) {
-        return courseService.findAll(pageable);
+    public Page<Student> findAll(Pageable pageable) {
+        return studentService.findAll(pageable);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Course update(@PathVariable("id") Course course,
-        @Valid @RequestBody Course updatedCourse) {
-        return courseService.update(course, updatedCourse);
+    public Student update(@PathVariable("id") Student student,
+        @Valid @RequestBody Student updatedStudent) {
+        return studentService.update(student, updatedStudent);
     }
 }
